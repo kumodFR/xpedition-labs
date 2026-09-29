@@ -2,10 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
 // Handles the Contact form on the homepage (public/xpedition-labs.html).
-
-// Resend API key (same account as farminsta-web)
-const RESEND_API_KEY = "re_hbRE4rat_BJixJ5ER5vzzNR84KuD9FAzu"
-const resend = new Resend(RESEND_API_KEY)
+// Requires RESEND_API_KEY in the environment (.env.local locally, and the
+// hosting provider's environment variables in production).
 
 const FROM = 'Xpedition Labs Website <demo@farminsta.com>'
 const TO = ['ypr@xpeditionlabs.com']
@@ -102,7 +100,13 @@ export async function POST(request: NextRequest) {
       return respond(400, { error: 'Please enter a valid email address.' })
     }
 
-    const { error } = await resend.emails.send({
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) {
+      console.error('RESEND_API_KEY is not set')
+      return respond(500, { error: 'Email service is not configured.' })
+    }
+
+    const { error } = await new Resend(apiKey).emails.send({
       from: FROM,
       to: TO,
       cc: CC,
