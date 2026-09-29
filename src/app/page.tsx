@@ -24,6 +24,7 @@ function loadHtmlPage() {
 export const metadata: Metadata = {
   title: 'Xpedition Labs — Building the next generation of crop innovation',
   description: 'Xpedition Labs identifies high-value opportunities in agriculture and transforms them into commercially relevant products.',
+  alternates: { canonical: '/' },
 }
 
 export default function Home() {
