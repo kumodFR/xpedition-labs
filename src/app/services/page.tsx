@@ -1,5 +1,7 @@
 'use client'
-import React, { useState, useCallback } from 'react'
+import { useState, useCallback, type JSX } from 'react'
+import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
 
 type ServiceKey = 'compass' | 'trek' | 'autopilot'
 type TierKey = 'lite' | 'standard' | 'deep'
@@ -83,7 +85,7 @@ const autopilotIcons = [
   <svg key="a3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
 ]
 
-const serviceIcons: Record<ServiceKey, React.JSX.Element[]> = {
+const serviceIcons: Record<ServiceKey, JSX.Element[]> = {
   compass: compassIcons,
   trek: trekIcons,
   autopilot: autopilotIcons,
@@ -153,6 +155,8 @@ export default function ServicesPage() {
   const currentTier = activeTiers[activeService]
 
   return (
+    <>
+    <Nav />
     <div className="bg-[#0d1b2e] text-[#e8e6e0] min-h-screen font-[Inter,system-ui,sans-serif] font-light leading-[1.7] antialiased overflow-x-hidden">
       {/* Compass rose */}
       <div className="fixed right-7 top-1/2 -translate-y-1/2 flex flex-col items-center gap-5 z-50 pointer-events-none max-md:hidden">
@@ -285,5 +289,7 @@ export default function ServicesPage() {
         </a>
       </section>
     </div>
+    <Footer />
+    </>
   )
 }

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xpedition Labs — Building the next generation of crop innovation</title>
+<meta name="description" content="Xpedition Labs identifies high-value opportunities in agriculture and transforms them into commercially relevant products.">
+<style>
+/* ── Fonts (self-hosted from /public/fonts) ── */
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url("/fonts/archivo-latin-ext.woff2") format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url("/fonts/archivo-latin.woff2") format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url("/fonts/ibm-plex-mono-500-latin-ext.woff2") format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url("/fonts/ibm-plex-mono-500-latin.woff2") format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:400 600;font-stretch:100%;font-display:swap;src:url("/fonts/ibm-plex-sans-latin-ext.woff2") format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:400 600;font-stretch:100%;font-display:swap;src:url("/fonts/ibm-plex-sans-latin.woff2") format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Michroma';font-style:normal;font-weight:400;font-display:swap;src:url("/fonts/michroma-latin-ext.woff2") format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Michroma';font-style:normal;font-weight:400;font-display:swap;src:url("/fonts/michroma-latin.woff2") format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<style>
+/* ── Base ── */
+body{margin:0;background:#F5F3F0}
+.xl-page{
+  --copper:#97583D; --copper-dark:#7A4530; --copper-soft:#B7775B; --cream:#F6E6DC;
+  --ink:#2F353B; --text:#4A4E54; --muted:#565D65; --nav:#3D434A; --label:#2E3135;
+  --steel:#EDEFF2; --sand:#F5F3F0; --blush:#F4E9E0; --white:#FFFFFF;
+  --line:#E3DFD9; --line-2:#D8D3CC; --peach:#C9A08A;
+  --gutter:120px; --pad-y:128px;
+  display:flex;flex-direction:column;min-height:100vh;overflow-x:hidden;
+  font-family:'IBM Plex Sans',sans-serif;line-height:normal;color:var(--ink);background:var(--sand);
+}
+.xl-page *,.xl-page *::before,.xl-page *::after{box-sizing:border-box}
+.xl-page a{text-decoration:none}
+.xl-page strong{font-weight:600;color:var(--ink)}
+.xl-page svg{display:block}
+.gmd{background:linear-gradient(180deg,#8A8F95 0%,#4D535A 45%,#2F353B 60%,#6A7077 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* Full-bleed sections with content capped at 1200px */
+.xl-sec{padding:var(--pad-y) max(var(--gutter), calc((100% - 1200px) / 2))}
+.xl-stack{display:flex;flex-direction:column}
+.xl-gap-56{gap:56px}.xl-gap-64{gap:64px}.xl-gap-72{gap:72px}
+.bg-sand{background:var(--sand)}.bg-white{background:var(--white)}.bg-steel{background:var(--steel)}.bg-blush{background:var(--blush)}
+
+/* ── Type ── */
+.xl-eyebrow{display:flex;align-items:center;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--copper)}
+.xl-eyebrow::before{content:"";flex:0 0 32px;height:1px;background:var(--copper-soft)}
+.xl-eyebrow--dark::before{background:var(--copper)}
+.xl-h1{margin:0;font-family:'Archivo',sans-serif;font-stretch:110%;font-weight:600;font-size:clamp(40px, 3.2vw + 26px, 72px);line-height:1.02;letter-spacing:-.02em;color:var(--ink)}
+.xl-h2{margin:0;font-family:'Archivo',sans-serif;font-stretch:110%;font-weight:600;font-size:clamp(32px, 1.6vw + 25px, 48px);line-height:1.08;letter-spacing:-.015em;color:var(--ink)}
+.xl-h2--xl{font-size:clamp(34px, 1.9vw + 24.6px, 52px);line-height:1.06}
+.xl-lead{margin:0;font-size:20px;line-height:1.6;color:#4F565E}
+.xl-lead--strong{color:var(--ink);font-weight:500}
+.xl-p{margin:0;font-size:18px;line-height:1.65;color:var(--text)}
+.xl-p--strong{color:var(--ink);font-weight:500}
+.xl-rule{display:block;width:48px;height:2px;background:var(--copper-soft)}
+.xl-rule--sm{width:32px}
+
+/* Section heading layouts */
+.xl-head{display:flex;flex-direction:column;gap:28px}
+.xl-head--wide{max-width:900px}
+.xl-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:96px}
+.xl-split--end{align-items:end}
+.xl-body{display:flex;flex-direction:column;gap:20px;padding-top:44px}
+.xl-body--tight{gap:14px;padding-top:0}
+
+/* ── Buttons ── */
+.xl-actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+.xl-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:56px;padding:0 28px;border-radius:2px;font-size:16px;font-weight:600;transition:background-color .2s,color .2s,border-color .2s}
+.xl-btn--solid{background:var(--copper);color:#FFFFFF}
+.xl-btn--solid:hover{background:var(--copper-dark);color:#FFFFFF}
+.xl-btn--ghost{border:1px solid rgba(47,53,59,.35);font-weight:500;color:var(--ink)}
+.xl-btn--ghost:hover{border-color:var(--ink);color:var(--ink)}
+.xl-btn--light{flex-shrink:0;height:60px;padding:0 30px;background:#FFFFFF;font-size:17px;color:var(--copper)}
+.xl-btn--light:hover{background:var(--cream);color:var(--copper-dark)}
+
+/* ── Logo ── */
+.xl-logo{display:flex;align-items:center}
+.xl-logo-words{display:flex;flex-direction:column;margin-left:-4px;gap:3px}
+.xl-logo-name{font-family:'Michroma',sans-serif;font-size:22px;line-height:1;letter-spacing:.02em}
+.xl-logo-labs{font-family:'Archivo',sans-serif;font-stretch:120%;font-size:10px;font-weight:500;letter-spacing:1.1em;color:var(--copper-soft);padding-left:40px}
+.xl-logo--lg .xl-logo-words{margin-left:-5px;gap:4px}
+.xl-logo--lg .xl-logo-name{font-size:27px}
+.xl-logo--lg .xl-logo-labs{font-size:12px;padding-left:48px}
+
+/* ── Header / nav ── */
+.xl-header{position:relative;z-index:20;min-height:88px;padding:0 max(var(--gutter), calc((100% - 1200px) / 2));display:flex;align-items:center;justify-content:space-between;background:var(--steel);border-bottom:1px solid rgba(47,53,59,.10)}
+.xl-nav{display:flex;align-items:center;gap:36px}
+.xl-nav a{font-size:15px;font-weight:500;color:var(--nav);transition:color .2s}
+.xl-nav a:hover{color:var(--copper)}
+.xl-nav .xl-nav-cta{display:flex;align-items:center;height:44px;padding:0 20px;border:1px solid var(--copper);border-radius:2px;color:var(--copper)}
+.xl-nav .xl-nav-cta:hover{background:var(--copper);color:#FFFFFF}
+.xl-nav-toggle{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.xl-burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;cursor:pointer;border-radius:2px}
+.xl-burger span,.xl-burger span::before,.xl-burger span::after{display:block;width:22px;height:2px;background:var(--ink);transition:transform .25s,background-color .25s}
+.xl-burger span{position:relative}
+.xl-burger span::before,.xl-burger span::after{content:"";position:absolute;left:0}
+.xl-burger span::before{top:-7px}
+.xl-burger span::after{top:7px}
+.xl-nav-toggle:focus-visible + .xl-burger{outline:2px solid var(--copper);outline-offset:2px}
+.xl-nav-toggle:checked + .xl-burger span{background:transparent}
+.xl-nav-toggle:checked + .xl-burger span::before{transform:translateY(7px) rotate(45deg)}
+.xl-nav-toggle:checked + .xl-burger span::after{transform:translateY(-7px) rotate(-45deg)}
+
+/* ── Hero ── */
+.xl-hero{position:relative;overflow:hidden;background:var(--steel);padding-top:120px;padding-bottom:88px;display:flex;flex-direction:column;gap:80px}
+.xl-hero-art{position:absolute;right:-120px;top:-40px;width:760px;height:820px}
+.xl-hero-copy{position:relative;max-width:860px;display:flex;flex-direction:column;gap:32px}
+.xl-hero-lead{display:flex;flex-direction:column;gap:16px;max-width:680px}
+.xl-tags{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:20px;padding-top:28px;border-top:1px solid rgba(47,53,59,.14);font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.xl-dot{width:5px;height:5px;border-radius:50%;background:var(--copper)}
+
+/* ── Purpose ── */
+.xl-quote{display:flex;flex-direction:column;gap:16px;margin-top:16px}
+.xl-quote p{margin:0;font-family:'Archivo',sans-serif;font-stretch:105%;font-size:clamp(20px, .3vw + 19.7px, 24px);line-height:1.35;font-weight:500;color:var(--ink)}
+
+/* ── Approach ── */
+.xl-approach-box{background:var(--sand);border:1px solid var(--line);border-radius:4px;padding:56px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:64px;align-items:center}
+.xl-statement{margin:0;font-family:'Archivo',sans-serif;font-stretch:108%;font-weight:600;font-size:clamp(26px, 1.1vw + 22px, 38px);line-height:1.12;letter-spacing:-.01em;color:var(--ink)}
+.xl-statement span{color:var(--copper)}
+.xl-flow{display:flex;align-items:center;gap:20px}
+.xl-flow-inputs{display:flex;flex-direction:column;gap:10px;width:200px;flex-shrink:0}
+.xl-flow-input{height:48px;display:flex;align-items:center;padding:0 16px;background:#FFFFFF;border:1px solid var(--line-2);border-radius:2px;font-size:15px;font-weight:500;color:var(--label)}
+.xl-flow-arrow{flex-shrink:0;width:64px;height:226px}
+.xl-flow-target{flex-grow:1;min-height:150px;padding:24px;display:flex;flex-direction:column;justify-content:center;gap:10px;background:var(--copper);border-radius:2px}
+.xl-flow-target span:first-child{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream)}
+.xl-flow-target span:last-child{font-family:'Archivo',sans-serif;font-stretch:105%;font-size:22px;line-height:1.2;font-weight:600;color:#FFFFFF}
+
+/* ── Card grids ── */
+.xl-grid{display:grid;gap:24px}
+.xl-grid-5{grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
+.xl-grid-4{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.xl-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.xl-grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.xl-card{background:#FFFFFF;border:1px solid var(--line);display:flex;flex-direction:column}
+.xl-card p{margin:0;color:var(--text)}
+.xl-card h3{margin:0;font-family:'Archivo',sans-serif;font-weight:600;color:var(--ink)}
+.xl-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--copper)}
+
+/* What we do */
+.xl-card--step{border-top:2px solid var(--copper-soft);padding:32px 26px;gap:14px}
+.xl-card--step h3{font-stretch:104%;font-size:21px;line-height:1.2}
+.xl-card--step p{font-size:15px;line-height:1.6}
+
+/* Focus areas */
+.xl-card--focus{padding:40px 36px;gap:18px}
+.xl-card--focus svg{width:36px;height:36px}
+.xl-card--focus h3{margin-top:6px;font-stretch:105%;font-size:23px}
+.xl-card--focus p{font-size:16px;line-height:1.6}
+.xl-card--accent{background:var(--copper);border-color:var(--copper);justify-content:space-between;gap:24px}
+.xl-card--accent p:first-child{font-family:'Archivo',sans-serif;font-stretch:105%;font-size:21px;line-height:1.35;font-weight:500;color:#FFFFFF}
+.xl-card--accent p:last-child{font-size:14px;line-height:1.55;font-style:italic;color:var(--cream)}
+
+/* Business model */
+.xl-card--model{padding:40px;display:grid;grid-template-columns:56px minmax(0,1fr);gap:8px 16px}
+.xl-card--model .xl-num{font-size:14px;padding-top:6px}
+.xl-card--model > div{display:flex;flex-direction:column;gap:12px}
+.xl-card--model h3{font-stretch:105%;font-size:24px}
+.xl-card--model p{font-size:16.5px;line-height:1.6}
+
+/* Partner */
+.xl-card--partner{padding:36px 30px;gap:14px}
+.xl-card--partner h3{margin-top:8px;font-stretch:104%;font-size:21px;line-height:1.2}
+.xl-card--partner p{font-size:15.5px;line-height:1.6}
+
+/* ── How we build (timeline) ── */
+.xl-timeline{position:relative}
+.xl-timeline::before{content:"";position:absolute;left:24px;right:24px;top:24px;height:1px;background:rgba(208,154,127,.45)}
+.xl-timeline-grid{position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:18px}
+.xl-step{display:flex;flex-direction:column;gap:14px}
+.xl-step-num{width:48px;height:48px;border:1px solid var(--copper);border-radius:50%;background:var(--steel);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--copper)}
+.xl-step-num--active{background:var(--copper);color:#FFFFFF}
+.xl-step h3{margin:12px 0 0;font-family:'Archivo',sans-serif;font-size:19px;font-weight:600;color:var(--ink)}
+.xl-step p{margin:0;font-size:15px;line-height:1.55;color:var(--muted)}
+.xl-note{margin:0;padding-top:40px;border-top:1px solid rgba(47,53,59,.14);max-width:960px;font-family:'Archivo',sans-serif;font-stretch:105%;font-size:clamp(20px, .45vw + 19.5px, 26px);line-height:1.35;font-weight:500;color:var(--ink)}
+
+/* ── Ecosystem ── */
+.xl-eco{display:grid;grid-template-columns:minmax(0,1fr) 600px;gap:80px;align-items:center}
+.xl-eco-copy{display:flex;flex-direction:column;gap:22px}
+.xl-eco-copy .xl-h2{margin:6px 0 8px}
+.xl-eco-tagline{margin:12px 0 0;padding-top:24px;border-top:1px solid var(--line);font-family:'Archivo',sans-serif;font-stretch:105%;font-size:22px;line-height:1.35;font-weight:600;color:var(--copper)}
+.xl-orbit{position:relative;width:600px;height:540px}
+.xl-ring{position:absolute;border-radius:50%}
+.xl-ring--outer{left:100px;top:70px;width:400px;height:400px;border:1px dashed var(--peach)}
+.xl-ring--inner{left:175px;top:145px;width:250px;height:250px;border:1px solid #ECE7E1}
+.xl-core{position:absolute;left:210px;top:180px;width:180px;height:180px;border-radius:50%;background:#FFFFFF;border:2px solid var(--copper-soft);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center}
+.xl-core-name{font-family:'Michroma',sans-serif;font-size:15px;line-height:1.2}
+.xl-core-labs{font-family:'Archivo',sans-serif;font-stretch:120%;font-size:10px;letter-spacing:.9em;padding-left:.9em;color:var(--copper-soft)}
+.xl-core-note{margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.xl-node{position:absolute;width:200px;height:40px;display:flex;align-items:center;justify-content:center;text-align:center;background:var(--sand);border:1px solid var(--line-2);border-radius:20px;font-size:13.5px;font-weight:500;color:var(--label)}
+
+/* ── Business model structures ── */
+.xl-structures{display:flex;flex-direction:column;gap:18px;padding-top:36px;border-top:1px solid #DAD5CE}
+.xl-structures > span{font-size:16px;color:var(--text)}
+.xl-pills{display:flex;flex-wrap:wrap;gap:10px}
+.xl-pill{min-height:40px;display:flex;align-items:center;padding:0 18px;border:1px solid var(--peach);border-radius:20px;font-size:15px;font-weight:500;color:var(--ink)}
+
+/* ── Advantage ── */
+.xl-grid-why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:56px 48px}
+.xl-why{display:flex;flex-direction:column;gap:14px;padding-top:28px;border-top:1px solid rgba(208,154,127,.5)}
+.xl-why h3{margin:0;font-family:'Archivo',sans-serif;font-stretch:105%;font-size:22px;font-weight:600;color:var(--ink)}
+.xl-why p{margin:0;font-size:16px;line-height:1.6;color:var(--muted)}
+
+/* ── Vision ── */
+.xl-vision{padding-top:calc(var(--pad-y) + 16px)}
+.xl-vision-line{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px 36px;padding-top:40px;border-top:1px solid var(--line);font-family:'Archivo',sans-serif;font-stretch:108%;font-size:clamp(22px, .6vw + 21.4px, 30px);font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.xl-vision-line span:last-child{color:var(--copper)}
+
+/* ── Partner CTA ── */
+.xl-cta{background:var(--copper);border-radius:4px;padding:56px 64px;display:flex;align-items:center;justify-content:space-between;gap:48px}
+.xl-cta-copy{display:flex;flex-direction:column;gap:14px}
+.xl-cta-copy span:first-child{font-size:17px;font-weight:500;color:var(--cream)}
+.xl-cta-copy span:last-child{font-family:'Archivo',sans-serif;font-stretch:108%;font-size:clamp(26px, .9vw + 23px, 36px);line-height:1.15;font-weight:600;color:#FFFFFF}
+
+/* ── Contact ── */
+.xl-contact-details{display:flex;flex-direction:column;gap:22px;margin-top:16px;padding-top:32px;border-top:1px solid var(--line)}
+.xl-contact-org{display:flex;flex-direction:column;gap:4px}
+.xl-contact-org span:first-child{font-family:'Archivo',sans-serif;font-stretch:105%;font-size:20px;font-weight:600;color:var(--ink)}
+.xl-contact-org span:last-child{font-size:17px;color:var(--text)}
+.xl-contact-list{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px 16px;font-size:17px}
+.xl-contact-list > span{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6A6E74;padding-top:4px}
+.xl-contact-list a{color:var(--copper);font-weight:500;overflow-wrap:anywhere}
+.xl-contact-list a:hover{color:var(--copper-dark)}
+.xl-form{background:var(--sand);border:1px solid var(--line);padding:48px;display:flex;flex-direction:column;gap:22px}
+.xl-form-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.xl-field{display:flex;flex-direction:column;gap:8px}
+.xl-field label{font-size:14px;font-weight:500;color:var(--label)}
+.xl-input{width:100%;height:52px;padding:0 16px;border:1px solid #CFCAC3;border-radius:2px;background:#FFFFFF;font:inherit;font-size:16px;color:var(--label)}
+select.xl-input{padding:0 12px}
+textarea.xl-input{height:150px;padding:14px 16px;resize:vertical}
+.xl-input:focus{outline:2px solid var(--copper-soft);outline-offset:0;border-color:var(--copper-soft)}
+.xl-submit{align-self:flex-start;height:56px;padding:0 36px;border:0;border-radius:2px;background:#98593E;color:#FFFFFF;font:inherit;font-size:16px;font-weight:600;cursor:pointer;transition:background-color .2s}
+.xl-submit:hover{background:var(--copper-dark)}
+.xl-submit:disabled{opacity:.6;cursor:wait}
+.xl-form-status{margin:0;font-size:15px;line-height:1.5}
+.xl-form-status:empty{display:none}
+.xl-form-status[data-state="success"]{color:#2F6B3F}
+.xl-form-status[data-state="error"]{color:#B3261E}
+
+/* ── Footer ── */
+.xl-footer{flex-grow:1;background:var(--steel);color:var(--muted);padding-top:88px;padding-bottom:56px;display:flex;flex-direction:column;justify-content:space-between;gap:56px}
+.xl-footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:64px}
+.xl-footer-brand{display:flex;flex-direction:column;gap:24px}
+.xl-footer-brand > span{font-family:'Archivo',sans-serif;font-stretch:108%;font-size:22px;font-weight:600;color:var(--ink)}
+.xl-footer-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 64px}
+.xl-footer-nav a{font-size:15px;color:var(--nav);transition:color .2s}
+.xl-footer-nav a:hover{color:var(--copper)}
+.xl-footer-bottom{display:flex;flex-direction:column;gap:20px;padding-top:32px;border-top:1px solid rgba(47,53,59,.14)}
+.xl-footer-bottom > span{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;line-height:1.6;text-transform:uppercase;color:var(--muted)}
+.xl-footer-legal{display:flex;justify-content:space-between;gap:12px 32px;font-size:14px;line-height:1.5}
+.xl-footer-legal span:last-child{font-style:italic}
+
+/* ════════════ Responsive ════════════ */
+
+/* Small desktop / large tablet */
+@media (max-width:1280px){
+  .xl-page{--gutter:64px}
+  .xl-nav{gap:28px}
+  .xl-split{gap:64px}
+  .xl-grid-5{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .xl-grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .xl-eco{gap:56px}
+  .xl-hero-art{right:-220px;opacity:.85}
+}
+
+/* Tablet */
+@media (max-width:1100px){
+  .xl-page{--gutter:40px;--pad-y:104px}
+
+  /* Collapsible nav */
+  .xl-header{min-height:76px}
+  .xl-burger{display:flex}
+  .xl-nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:8px var(--gutter) 24px;background:var(--steel);border-bottom:1px solid rgba(47,53,59,.10);box-shadow:0 12px 24px rgba(47,53,59,.08)}
+  .xl-nav-toggle:checked ~ .xl-nav{display:flex}
+  .xl-nav a{padding:14px 0;border-bottom:1px solid rgba(47,53,59,.08)}
+  .xl-nav .xl-nav-cta{justify-content:center;margin-top:16px;padding:0 20px}
+
+  .xl-split{grid-template-columns:1fr;gap:32px}
+  .xl-body{padding-top:0}
+  .xl-approach-box{grid-template-columns:1fr;gap:40px;padding:40px}
+  .xl-grid-5{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .xl-grid-3,.xl-grid-why{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .xl-eco{grid-template-columns:1fr}
+  .xl-orbit{justify-self:center}
+  .xl-hero-art{width:560px;height:604px;right:-260px;top:0;opacity:.55}
+
+  /* Vertical timeline */
+  .xl-timeline::before{left:24px;right:auto;top:24px;bottom:24px;width:1px;height:auto}
+  .xl-timeline-grid{grid-template-columns:1fr;gap:32px}
+  .xl-step{display:grid;grid-template-columns:48px minmax(0,1fr);column-gap:24px;row-gap:6px}
+  .xl-step-num{grid-row:span 2}
+  .xl-step h3{margin:10px 0 0}
+}
+
+@media (max-width:900px){
+  .xl-cta{flex-direction:column;align-items:flex-start;gap:32px;padding:48px 40px}
+  .xl-footer-top{flex-direction:column;gap:40px}
+}
+
+/* Large phone / small tablet */
+@media (max-width:768px){
+  .xl-page{--gutter:24px;--pad-y:88px}
+  .xl-gap-56,.xl-gap-64,.xl-gap-72{gap:48px}
+  .xl-hero{padding-top:88px;padding-bottom:64px;gap:56px}
+  .xl-hero-art{opacity:.35}
+  .xl-grid-2{grid-template-columns:1fr}
+  .xl-footer-legal{flex-direction:column}
+}
+
+/* Ecosystem diagram → stacked layout once the 600px orbit no longer fits */
+@media (max-width:680px){
+  .xl-orbit{width:100%;height:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .xl-ring{display:none}
+  .xl-core{position:static;grid-column:1 / -1;justify-self:center;margin-bottom:14px}
+  .xl-node{position:static;width:auto;height:auto;min-height:44px;padding:8px 12px;line-height:1.3}
+}
+
+/* Phone */
+@media (max-width:560px){
+  .xl-page{--gutter:20px;--pad-y:72px}
+  .xl-gap-56,.xl-gap-64,.xl-gap-72{gap:40px}
+  .xl-head{gap:20px}
+  .xl-eyebrow{font-size:11.5px;letter-spacing:.14em;gap:12px}
+  .xl-eyebrow::before{flex-basis:24px}
+  .xl-lead{font-size:18px}
+  .xl-p{font-size:17px}
+  .xl-header{min-height:68px}
+  .xl-logo svg{width:44px;height:37px}
+  .xl-logo-name{font-size:19px}
+  .xl-logo-labs{padding-left:34px}
+  .xl-logo--lg .xl-logo-name{font-size:23px}
+  .xl-logo--lg .xl-logo-labs{padding-left:40px}
+  .xl-hero{padding-top:64px;padding-bottom:48px;gap:48px}
+  .xl-hero-copy{gap:24px}
+  .xl-hero-art{width:400px;height:432px;right:-240px;opacity:.3}
+  .xl-actions .xl-btn{flex:1 1 100%}
+  .xl-tags{gap:10px 14px;font-size:11px;letter-spacing:.12em}
+
+  .xl-approach-box{padding:28px 20px;gap:32px}
+  .xl-flow{flex-direction:column;align-items:stretch;gap:16px}
+  .xl-flow-inputs{width:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .xl-page .xl-flow-arrow{display:none}
+  .xl-flow-target{min-height:0}
+
+  .xl-grid-5,.xl-grid-4,.xl-grid-3,.xl-grid-why{grid-template-columns:1fr}
+  .xl-grid-why{gap:36px}
+  .xl-card--step{padding:28px 22px}
+  .xl-card--focus,.xl-card--partner{padding:32px 24px}
+  .xl-card--model{padding:28px 22px;grid-template-columns:40px minmax(0,1fr)}
+  .xl-card--model h3{font-size:21px}
+
+  .xl-pill{min-height:36px;padding:6px 14px;font-size:14px}
+  .xl-vision-line{flex-direction:column;gap:6px;padding-top:32px}
+  .xl-cta{padding:36px 24px}
+  .xl-btn--light{width:100%}
+
+  .xl-form{padding:28px 20px}
+  .xl-form-row{grid-template-columns:1fr}
+  .xl-contact-list{grid-template-columns:84px minmax(0,1fr)}
+  .xl-submit{align-self:stretch}
+  .xl-footer{padding-top:64px;padding-bottom:40px;gap:40px}
+  .xl-footer-nav{gap:14px 32px}
+}
+</style>
+</head>
+<body>
+<div class="xl-page">
+
+<!-- NAV -->
+<header class="xl-header">
+<a class="xl-logo" href="#top" aria-label="Xpedition Labs home">
+<svg width="52" height="44" viewBox="0 0 52 44" aria-hidden="true"><defs><linearGradient id="gx1" x1="0" y1="0" x2="1" y2="0.35"><stop offset="0" stop-color="#6E737A"></stop><stop offset="0.45" stop-color="#C9CDD2"></stop><stop offset="0.62" stop-color="#858A90"></stop><stop offset="1" stop-color="#B3B7BC"></stop></linearGradient></defs><polygon points="34,0 47,0 14,44 1,44" fill="url(#gx1)"></polygon><polygon points="4,0 17,0 50,44 37,44" fill="url(#gx1)" stroke="#EDEFF2" stroke-width="2.5"></polygon></svg>
+<div class="xl-logo-words">
+<span class="xl-logo-name gmd">PEDITION</span>
+<span class="xl-logo-labs">LABS</span>
+</div>
+</a>
+<input type="checkbox" id="xl-nav-toggle" class="xl-nav-toggle" aria-label="Toggle navigation menu">
+<label for="xl-nav-toggle" class="xl-burger" aria-hidden="true"><span></span></label>
+<nav class="xl-nav" aria-label="Primary">
+<a href="#approach">Approach</a>
+<a href="#how">How We Build</a>
+<a href="#focus">Focus Areas</a>
+<a href="#model">Business Model</a>
+<a href="#partner">Partner With Us</a>
+<a href="#contact" class="xl-nav-cta">Contact</a>
+</nav>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section id="top" class="xl-sec xl-hero">
+<svg class="xl-hero-art" viewBox="0 0 760 820" aria-hidden="true"><defs><linearGradient id="hs1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C3C8CD"></stop><stop offset="0.48" stop-color="#E2E5E8"></stop><stop offset="0.56" stop-color="#FAFBFC"></stop><stop offset="1" stop-color="#C9CDD2"></stop></linearGradient><linearGradient id="hs2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D5D9DD"></stop><stop offset="0.5" stop-color="#C6CBD0"></stop><stop offset="1" stop-color="#DADDE1"></stop></linearGradient></defs><polygon points="470,0 640,0 250,820 80,820" fill="url(#hs2)"></polygon><polygon points="140,0 310,0 700,820 530,820" fill="url(#hs1)" stroke="#EDEFF2" stroke-width="16"></polygon><line x1="318" y1="0" x2="708" y2="820" stroke="#B7775B" stroke-width="1.5" opacity="0.7"></line></svg>
+<div class="xl-hero-copy">
+<div class="xl-eyebrow xl-eyebrow--dark">Agricultural Biotechnology · Hyderabad, India</div>
+<h1 class="xl-h1">Building the next generation of crop innovation.</h1>
+<div class="xl-hero-lead">
+<p class="xl-lead">Xpedition Labs identifies high-value opportunities in agriculture and transforms them into commercially relevant products.</p>
+<p class="xl-lead">We bring together <strong>product strategy, technology, intellectual property, scientific expertise and industry partnerships</strong> to build differentiated solutions for the seed industry.</p>
+</div>
+<div class="xl-actions">
+<a href="#partner" class="xl-btn xl-btn--solid">Partner With Us</a>
+<a href="#approach" class="xl-btn xl-btn--ghost">Explore Our Approach</a>
+</div>
+</div>
+<div class="xl-tags">
+<span>Product-led.</span><span class="xl-dot"></span><span>Science-driven.</span><span class="xl-dot"></span><span>Partnership-powered.</span>
+</div>
+</section>
+
+<!-- PURPOSE -->
+<section id="purpose" class="xl-sec xl-split bg-sand">
+<div class="xl-head">
+<div class="xl-eyebrow">Our Purpose</div>
+<h2 class="xl-h2">Turning scientific possibilities into agricultural products.</h2>
+</div>
+<div class="xl-body">
+<p class="xl-lead xl-lead--strong">Agriculture is entering a new era of innovation.</p>
+<p class="xl-p">Advances in biotechnology, genetics, breeding and crop science are creating powerful new possibilities. At the same time, farmers and agricultural companies continue to seek better solutions for productivity, resilience and sustainable crop production.</p>
+<p class="xl-p">Xpedition Labs connects these opportunities.</p>
+<p class="xl-p">We identify meaningful agricultural needs, define the product opportunity and bring together the <strong>science, technology, intellectual property and partnerships</strong> required to develop commercially relevant solutions.</p>
+<div class="xl-quote">
+<span class="xl-rule"></span>
+<p>From opportunity to product, we provide the direction that connects science with the market.</p>
+</div>
+</div>
+</section>
+
+<!-- APPROACH -->
+<section id="approach" class="xl-sec xl-stack xl-gap-72 bg-white">
+<div class="xl-split">
+<div class="xl-head">
+<div class="xl-eyebrow">Our Approach</div>
+<h2 class="xl-h2">Product-led.<br>Technology-enabled.</h2>
+</div>
+<div class="xl-body">
+<p class="xl-p">Every Xpedition Labs programme begins with a clearly defined agricultural and commercial opportunity.</p>
+<p class="xl-p">We define the desired product outcome and then identify the scientific pathway, technology, intellectual property and development capabilities required to achieve it.</p>
+<p class="xl-p">Our technology-agnostic approach enables us to draw from advances across biotechnology, genetics, breeding and crop science and apply the most appropriate pathway to each opportunity.</p>
+</div>
+</div>
+<div class="xl-approach-box">
+<div class="xl-stack" style="gap:24px">
+<p class="xl-statement">We own the product strategy. <span>We orchestrate the science.</span></p>
+<p class="xl-p">This allows specialised scientific capabilities from multiple organisations and geographies to come together around one clearly defined product objective.</p>
+</div>
+<div class="xl-flow">
+<div class="xl-flow-inputs">
+<div class="xl-flow-input">Biotechnology</div>
+<div class="xl-flow-input">Genetics</div>
+<div class="xl-flow-input">Breeding</div>
+<div class="xl-flow-input">Crop science</div>
+</div>
+<svg class="xl-flow-arrow" viewBox="0 0 64 226" aria-hidden="true"><path d="M0 24 C32 24 32 113 58 113 M0 82 C28 82 32 113 58 113 M0 144 C28 144 32 113 58 113 M0 202 C32 202 32 113 58 113" fill="none" stroke="#B7775B" stroke-width="1.5"></path><path d="M52 107 L60 113 L52 119" fill="none" stroke="#B7775B" stroke-width="1.5"></path></svg>
+<div class="xl-flow-target">
+<span>One objective</span>
+<span>Clearly defined product</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- WHAT WE DO -->
+<section id="what" class="xl-sec xl-stack xl-gap-64 bg-sand">
+<div class="xl-head xl-head--wide">
+<div class="xl-eyebrow">What We Do</div>
+<h2 class="xl-h2">Connecting opportunity, science and commercialisation.</h2>
+</div>
+<div class="xl-grid xl-grid-5">
+<div class="xl-card xl-card--step">
+<span class="xl-num">01</span>
+<h3>Product Strategy</h3>
+<p>We identify high-value agricultural opportunities and translate them into clearly defined product concepts, target outcomes and development roadmaps.</p>
+</div>
+<div class="xl-card xl-card--step">
+<span class="xl-num">02</span>
+<h3>Technology &amp; IP</h3>
+<p>We identify and access enabling technologies and intellectual property from India and globally, creating a clear framework for development and commercialisation.</p>
+</div>
+<div class="xl-card xl-card--step">
+<span class="xl-num">03</span>
+<h3>Programme Development</h3>
+<p>We assemble specialised scientific capabilities around each opportunity and manage development through clearly defined technical and product milestones.</p>
+</div>
+<div class="xl-card xl-card--step">
+<span class="xl-num">04</span>
+<h3>Validation</h3>
+<p>We generate the scientific and product evidence required to establish performance and advance promising innovations towards commercial development.</p>
+</div>
+<div class="xl-card xl-card--step">
+<span class="xl-num">05</span>
+<h3>Commercialisation</h3>
+<p>We work with seed and agricultural companies through licensing, co-development and strategic partnerships to bring successful products closer to market.</p>
+</div>
+</div>
+</section>
+
+<!-- HOW WE BUILD -->
+<section id="how" class="xl-sec xl-stack xl-gap-72 bg-steel">
+<div class="xl-head xl-head--wide">
+<div class="xl-eyebrow xl-eyebrow--dark">How We Build</div>
+<h2 class="xl-h2">A structured pathway from opportunity to market.</h2>
+</div>
+<div class="xl-timeline">
+<div class="xl-timeline-grid">
+<div class="xl-step"><span class="xl-step-num">01</span><h3>Discover</h3><p>Identify agricultural challenges and opportunities with meaningful market potential.</p></div>
+<div class="xl-step"><span class="xl-step-num">02</span><h3>Define</h3><p>Translate the opportunity into a product concept, target outcomes and development roadmap.</p></div>
+<div class="xl-step"><span class="xl-step-num">03</span><h3>Access</h3><p>Bring together the required technology, intellectual property and scientific capabilities.</p></div>
+<div class="xl-step"><span class="xl-step-num">04</span><h3>Collaborate</h3><p>Create the right combination of research, technology and industry partnerships.</p></div>
+<div class="xl-step"><span class="xl-step-num">05</span><h3>Develop</h3><p>Execute milestone-driven scientific and product development programmes.</p></div>
+<div class="xl-step"><span class="xl-step-num">06</span><h3>Validate</h3><p>Establish technical performance, product relevance and development potential.</p></div>
+<div class="xl-step"><span class="xl-step-num xl-step-num--active">07</span><h3>Commercialise</h3><p>Build licensing and co-development partnerships to advance successful products towards the market.</p></div>
+</div>
+</div>
+<p class="xl-note">Every stage builds evidence, reduces development risk and strengthens the pathway to commercialisation.</p>
+</section>
+
+<!-- FOCUS AREAS -->
+<section id="focus" class="xl-sec xl-stack xl-gap-64 bg-sand">
+<div class="xl-split xl-split--end">
+<div class="xl-head">
+<div class="xl-eyebrow">Focus Areas</div>
+<h2 class="xl-h2">Building solutions for important agricultural needs.</h2>
+</div>
+<p class="xl-p">Our development interests are centred on areas where advanced crop science can create meaningful value for farmers and the agricultural industry.</p>
+</div>
+<div class="xl-grid xl-grid-3">
+<div class="xl-card xl-card--focus">
+<svg viewBox="0 0 32 32" fill="none" stroke="#97583D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 28V13"></path><path d="M16 17c-5 0-8-3-8-8 5 0 8 3 8 8z"></path><path d="M16 14c0-5 3-8 8-8 0 5-3 8-8 8z"></path><path d="M6 28h20"></path></svg>
+<h3>Crop Productivity</h3>
+<p>Innovations that enable crops to realise greater and more consistent production potential.</p>
+</div>
+<div class="xl-card xl-card--focus">
+<svg viewBox="0 0 32 32" fill="none" stroke="#97583D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3l10 4v8c0 7-4.5 11.5-10 14C10.5 26.5 6 22 6 15V7z"></path><path d="M11.5 16l3 3 6-6.5"></path></svg>
+<h3>Crop Protection</h3>
+<p>Technologies that strengthen crop performance against important biological challenges.</p>
+</div>
+<div class="xl-card xl-card--focus">
+<svg viewBox="0 0 32 32" fill="none" stroke="#97583D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 23a12 12 0 0 1 24 0"></path><path d="M16 23l6-7"></path><circle cx="16" cy="23" r="1.6"></circle><path d="M8 17l1.5 1M24 17l-1.5 1M16 11v2"></path></svg>
+<h3>Production Efficiency</h3>
+<p>Solutions that support more efficient use of labour, inputs and agricultural resources.</p>
+</div>
+<div class="xl-card xl-card--focus">
+<svg viewBox="0 0 32 32" fill="none" stroke="#97583D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4c6 4 8.5 10 6.5 16S12 28 10 22s0-14 6-18z"></path><path d="M16 8c-1.5 5-1.5 11 0 17"></path></svg>
+<h3>Advanced Seed Technologies</h3>
+<p>Innovations that improve breeding, seed production and the development of differentiated commercial products.</p>
+</div>
+<div class="xl-card xl-card--focus">
+<svg viewBox="0 0 32 32" fill="none" stroke="#97583D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="12" r="5"></circle><path d="M16 3v1.5M16 19.5V21M7 12h1.5M23.5 12H25M9.6 5.6l1 1M21.4 17.4l1 1M9.6 18.4l1-1M21.4 6.6l1-1"></path><path d="M4 26c3-2 5-2 8 0s5 2 8 0 5-2 8 0"></path></svg>
+<h3>Climate Resilience</h3>
+<p>Technologies designed to strengthen crop performance under increasingly variable growing environments.</p>
+</div>
+<div class="xl-card xl-card--focus xl-card--accent">
+<p>Our development portfolio is continuously shaped by industry needs, scientific opportunity and commercial potential.</p>
+<p>Detailed programme information is shared selectively with research, technology, commercial and investment partners.</p>
+</div>
+</div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section id="ecosystem" class="xl-sec xl-eco bg-white">
+<div class="xl-eco-copy">
+<div class="xl-eyebrow">Our Ecosystem</div>
+<h2 class="xl-h2">A connected innovation network.</h2>
+<p class="xl-p">Breakthrough agricultural products increasingly emerge through collaboration across disciplines, technologies and organisations.</p>
+<p class="xl-p">Xpedition Labs brings together <strong>scientists, research institutions, universities, biotechnology companies, technology owners, specialised laboratories, seed companies and agricultural enterprises</strong> around clearly defined product opportunities.</p>
+<p class="xl-p">For each programme, we create a purpose-built development network combining the capabilities best suited to achieving the product objective.</p>
+<p class="xl-p">Xpedition Labs provides the <strong>product strategy, programme architecture, partnership framework, IP direction and commercial pathway</strong> connecting this ecosystem.</p>
+<p class="xl-eco-tagline">Specialised science. Shared ambition. One product direction.</p>
+</div>
+<div class="xl-orbit">
+<div class="xl-ring xl-ring--outer"></div>
+<div class="xl-ring xl-ring--inner"></div>
+<div class="xl-core">
+<span class="xl-core-name gmd">XPEDITION</span>
+<span class="xl-core-labs">LABS</span>
+<span class="xl-core-note">One product<br>direction</span>
+</div>
+<!-- node positions are the orbit coordinates; ignored once the diagram stacks on small screens -->
+<div class="xl-node" style="left:200px;top:50px">Scientists</div>
+<div class="xl-node" style="left:341px;top:109px">Research institutions</div>
+<div class="xl-node" style="left:400px;top:250px">Universities</div>
+<div class="xl-node" style="left:341px;top:391px">Biotechnology companies</div>
+<div class="xl-node" style="left:200px;top:450px">Technology owners</div>
+<div class="xl-node" style="left:59px;top:391px">Specialised laboratories</div>
+<div class="xl-node" style="left:0;top:250px">Seed companies</div>
+<div class="xl-node" style="left:59px;top:109px">Agricultural enterprises</div>
+</div>
+</section>
+
+<!-- BUSINESS MODEL -->
+<section id="model" class="xl-sec xl-stack xl-gap-56 bg-sand">
+<div class="xl-split xl-split--end">
+<div class="xl-head">
+<div class="xl-eyebrow">Business Model</div>
+<h2 class="xl-h2">Creating value through agricultural innovation.</h2>
+</div>
+<div class="xl-body xl-body--tight">
+<p class="xl-p">Xpedition Labs builds intellectual property, technologies and products through proprietary and collaborative development programmes.</p>
+<p class="xl-p xl-p--strong">Our commercial pathways include:</p>
+</div>
+</div>
+<div class="xl-grid xl-grid-2">
+<div class="xl-card xl-card--model">
+<span class="xl-num">01</span>
+<div><h3>Product &amp; Technology Licensing</h3><p>Providing commercial partners access to validated innovations, technologies and intellectual property.</p></div>
+</div>
+<div class="xl-card xl-card--model">
+<span class="xl-num">02</span>
+<div><h3>Co-Development</h3><p>Building differentiated products together with strategic industry partners around shared market opportunities.</p></div>
+</div>
+<div class="xl-card xl-card--model">
+<span class="xl-num">03</span>
+<div><h3>Technology Access &amp; Localisation</h3><p>Working with global technology owners to develop new applications and commercial opportunities across India and other relevant markets.</p></div>
+</div>
+<div class="xl-card xl-card--model">
+<span class="xl-num">04</span>
+<div><h3>Strategic Development Programmes</h3><p>Creating focused innovation programmes around clearly defined industry opportunities and product requirements.</p></div>
+</div>
+</div>
+<div class="xl-structures">
+<span>Commercial structures can include</span>
+<div class="xl-pills">
+<span class="xl-pill">Development funding</span>
+<span class="xl-pill">Technology access</span>
+<span class="xl-pill">Milestone payments</span>
+<span class="xl-pill">Licensing fees</span>
+<span class="xl-pill">Royalties</span>
+<span class="xl-pill">Long-term commercial participation</span>
+</div>
+</div>
+</section>
+
+<!-- ADVANTAGE -->
+<section id="why" class="xl-sec xl-stack xl-gap-64 bg-blush">
+<div class="xl-head">
+<div class="xl-eyebrow xl-eyebrow--dark">The Xpedition Advantage</div>
+<h2 class="xl-h2">Built around the product journey.</h2>
+</div>
+<div class="xl-grid-why">
+<div class="xl-why"><h3>Industry Perspective</h3><p>Deep understanding of agriculture, seed markets, product strategy and commercialisation helps connect scientific development with real market opportunities.</p></div>
+<div class="xl-why"><h3>Market-Led Product Strategy</h3><p>Product programmes are built around clearly identified agricultural needs and commercial opportunities.</p></div>
+<div class="xl-why"><h3>Global Innovation Access</h3><p>We connect technologies, intellectual property and scientific capabilities across organisations and geographies.</p></div>
+<div class="xl-why"><h3>Integrated IP Strategy</h3><p>Technology access, intellectual property and commercial rights are incorporated into the development strategy from the beginning.</p></div>
+<div class="xl-why"><h3>Specialised Development Network</h3><p>Each programme brings together the scientific and technical capabilities best suited to its product objective.</p></div>
+<div class="xl-why"><h3>Capital-Efficient Platform</h3><p>Our partnership-led model enables capital to be deployed across a portfolio of focused product-development programmes.</p></div>
+</div>
+</section>
+
+<!-- VISION -->
+<section id="vision" class="xl-sec xl-vision xl-stack xl-gap-72 bg-white">
+<div class="xl-split">
+<div class="xl-head">
+<div class="xl-eyebrow">Our Vision</div>
+<h2 class="xl-h2 xl-h2--xl">Building a global agricultural biotechnology company from India.</h2>
+</div>
+<div class="xl-body">
+<p class="xl-p">India combines deep scientific talent, extraordinary agricultural diversity, a sophisticated seed industry and a rapidly expanding biotechnology ecosystem.</p>
+<p class="xl-p xl-p--strong">Xpedition Labs is building from this foundation.</p>
+<p class="xl-p">Our ambition is to create a portfolio of differentiated agricultural technologies and products with relevance across <strong>India and global markets</strong> — connecting scientific innovation with some of agriculture's most important opportunities.</p>
+</div>
+</div>
+<div class="xl-vision-line">
+<span>From India.</span><span>Built for agriculture.</span><span>Designed for global relevance.</span>
+</div>
+</section>
+
+<!-- PARTNER -->
+<section id="partner" class="xl-sec xl-stack xl-gap-56 bg-sand">
+<div class="xl-split xl-split--end">
+<div class="xl-head">
+<div class="xl-eyebrow">Partner With Us</div>
+<h2 class="xl-h2">Great agricultural products are built together.</h2>
+</div>
+<p class="xl-p">Xpedition Labs is building partnerships across the agricultural biotechnology ecosystem.</p>
+</div>
+<div class="xl-grid xl-grid-4">
+<div class="xl-card xl-card--partner"><span class="xl-rule xl-rule--sm"></span><h3>Seed &amp; Agricultural Companies</h3><p>Build differentiated products and strengthen your future innovation pipeline.</p></div>
+<div class="xl-card xl-card--partner"><span class="xl-rule xl-rule--sm"></span><h3>Scientists &amp; Research Institutions</h3><p>Translate scientific capabilities and discoveries into commercially relevant product opportunities.</p></div>
+<div class="xl-card xl-card--partner"><span class="xl-rule xl-rule--sm"></span><h3>Biotechnology &amp; Technology Companies</h3><p>Create new applications, development programmes and markets for differentiated technologies.</p></div>
+<div class="xl-card xl-card--partner"><span class="xl-rule xl-rule--sm"></span><h3>Investors &amp; Strategic Partners</h3><p>Participate in building a portfolio-driven agricultural biotechnology company with global ambitions.</p></div>
+</div>
+<div class="xl-cta">
+<div class="xl-cta-copy">
+<span>Have a technology, scientific capability or product opportunity?</span>
+<span>Let's explore what we can build together.</span>
+</div>
+<a href="#contact" class="xl-btn xl-btn--light">Start a Conversation <span aria-hidden="true">→</span></a>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="xl-sec xl-split bg-white">
+<div class="xl-head">
+<div class="xl-eyebrow">Contact</div>
+<h2 class="xl-h2">Start a Conversation</h2>
+<p class="xl-p">Whether you represent a seed company, research institution, biotechnology company, technology platform or investment organisation, we would be pleased to explore opportunities to work together.</p>
+<div class="xl-contact-details">
+<div class="xl-contact-org"><span>Xpedition Labs</span><span>Hyderabad, India</span></div>
+<div class="xl-contact-list">
+<span>Email</span><a href="mailto:ypr@xpeditionlabs.com">ypr@xpeditionlabs.com</a>
+<span>LinkedIn</span><a href="https://www.linkedin.com/company/xpedition-labs/" target="_blank" rel="noopener noreferrer">linkedin.com/company/xpedition-labs</a>
+</div>
+</div>
+</div>
+<form class="xl-form" id="xl-contact-form" action="/api/contact" method="post">
+<div class="xl-form-row">
+<div class="xl-field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" class="xl-input" autocomplete="name" required></div>
+<div class="xl-field"><label for="f-org">Organisation</label><input id="f-org" name="organisation" type="text" class="xl-input" autocomplete="organization"></div>
+</div>
+<div class="xl-field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" class="xl-input" autocomplete="email" required></div>
+<div class="xl-field"><label for="f-type">I am a</label><select id="f-type" name="type" class="xl-input"><option>Seed / Agricultural Company</option><option>Scientist / Research Institution</option><option>Biotechnology / Technology Company</option><option>Investor / Strategic Partner</option><option>Other</option></select></div>
+<div class="xl-field"><label for="f-msg">Message</label><textarea id="f-msg" name="message" rows="5" class="xl-input" required></textarea></div>
+<button type="submit" class="xl-submit">Submit</button>
+<p class="xl-form-status" role="status" aria-live="polite"></p>
+</form>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="xl-sec xl-footer">
+<div class="xl-footer-top">
+<div class="xl-footer-brand">
+<div class="xl-logo xl-logo--lg">
+<svg width="64" height="54" viewBox="0 0 52 44" aria-hidden="true"><defs><linearGradient id="gx2" x1="0" y1="0" x2="1" y2="0.35"><stop offset="0" stop-color="#6E737A"></stop><stop offset="0.45" stop-color="#C9CDD2"></stop><stop offset="0.62" stop-color="#858A90"></stop><stop offset="1" stop-color="#B3B7BC"></stop></linearGradient></defs><polygon points="34,0 47,0 14,44 1,44" fill="url(#gx2)"></polygon><polygon points="4,0 17,0 50,44 37,44" fill="url(#gx2)" stroke="#EDEFF2" stroke-width="2.5"></polygon></svg>
+<div class="xl-logo-words">
+<span class="xl-logo-name gmd">PEDITION</span>
+<span class="xl-logo-labs">LABS</span>
+</div>
+</div>
+<span>Science. Strategy. Products.</span>
+</div>
+<nav class="xl-footer-nav" aria-label="Footer">
+<a href="#approach">Approach</a>
+<a href="#model">Business Model</a>
+<a href="#how">How We Build</a>
+<a href="#partner">Partner With Us</a>
+<a href="#focus">Focus Areas</a>
+<a href="#contact">Contact</a>
+</nav>
+</div>
+<div class="xl-footer-bottom">
+<span>Agricultural Biotechnology · Product Innovation · Technology Partnerships · Intellectual Property · Commercialisation</span>
+<div class="xl-footer-legal">
+<span>Hyderabad, India · © 2026 Xpedition Labs. All rights reserved.</span>
+<span>Xpedition Labs is the proposed company name and is subject to MCA approval.</span>
+</div>
+</div>
+</footer>
+
+</div>
+</body>
+</html>
