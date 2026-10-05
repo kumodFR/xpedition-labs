@@ -234,6 +234,8 @@ textarea.xl-input{height:150px;padding:14px 16px;resize:vertical}
 .xl-form-status:empty{display:none}
 .xl-form-status[data-state="success"]{color:#2F6B3F}
 .xl-form-status[data-state="error"]{color:#B3261E}
+.xl-hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+.xl-turnstile:empty{display:none}
 
 /* ── Footer ── */
 .xl-footer{flex-grow:1;background:var(--steel);color:var(--muted);padding-top:88px;padding-bottom:56px;display:flex;flex-direction:column;justify-content:space-between;gap:56px}
@@ -710,6 +712,9 @@ textarea.xl-input{height:150px;padding:14px 16px;resize:vertical}
 <div class="xl-field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" class="xl-input" autocomplete="email" required></div>
 <div class="xl-field"><label for="f-type">I am a</label><select id="f-type" name="type" class="xl-input"><option>Seed / Agricultural Company</option><option>Scientist / Research Institution</option><option>Biotechnology / Technology Company</option><option>Investor / Strategic Partner</option><option>Other</option></select></div>
 <div class="xl-field"><label for="f-msg">Message</label><textarea id="f-msg" name="message" rows="5" class="xl-input" required></textarea></div>
+<!-- Spam protection: hidden honeypot field (bots fill it, people never see it) and the Cloudflare Turnstile widget -->
+<div class="xl-hp" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+<div id="xl-turnstile" class="xl-turnstile"></div>
 <button type="submit" class="xl-submit">Submit</button>
 <p class="xl-form-status" role="status" aria-live="polite"></p>
 </form>
