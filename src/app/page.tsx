@@ -4,12 +4,12 @@ import type { Metadata } from 'next'
 import HtmlNavCloser from '@/components/HtmlNavCloser'
 import HtmlContactForm from '@/components/HtmlContactForm'
 
-// The homepage is now rendered from the static design file in /public.
-// Edit public/xpedition-labs.html to change the page (it is also viewable
-// directly at /xpedition-labs.html). The previous React homepage is kept
-// below, commented out, for reference.
+// NOTE: not used for "/" any more. next.config.ts rewrites "/" to the current
+// site, public/xpedition-labs.html, which is served as a plain HTML page.
+// This renders the previous version (public/xpedition-labs-v1.html) and is
+// kept for reference, together with the earlier React homepage commented out below.
 
-const HTML_FILE = path.join(process.cwd(), 'public', 'xpedition-labs.html')
+const HTML_FILE = path.join(process.cwd(), 'public', 'xpedition-labs-v1.html')
 
 // Pull the <style> blocks from <head> and the markup inside <body> so the
 // page can be injected into the app layout.
