@@ -314,6 +314,20 @@ function submit(r){
   var msg=$('[data-msg]',f);
   if(!msg){msg=document.createElement('p'); msg.setAttribute('data-msg',''); msg.setAttribute('role','alert'); msg.style.cssText='margin:-10px 0 0;font-size:15.5px;line-height:1.4;color:#F0A090'; f.appendChild(msg);}
   if(!ok){msg.textContent='Please complete the fields marked in red.'; return;}
+  // Same rules /api/contact applies, checked here so people get a specific message
+  var fieldEl=function(n){var el=null; $$('label',f).forEach(function(l){if(l.firstElementChild.textContent.replace('*','').trim().toLowerCase()===n) el=$('input,select,textarea',l);}); return el;};
+  var LINK=/(https?:\/\/|www\.|->|\b[a-z0-9-]+\.(?:com|net|org|io|co|in|info|biz|xyz|ru|top|site|online|link|ly|me|app|dev)\b)/i, LINK_LOOSE=/(https?:\/\/|www\.|->)/i;
+  var nm=data['name']||'', org=data['organisation']||'', text=data['message']||'', words=text.split(/\s+/).filter(Boolean).length;
+  var problem=
+    nm.length>80?['name','Please keep your name under 80 characters.']:
+    LINK.test(nm)?['name','Please enter your name without links or web addresses.']:
+    /\p{Extended_Pictographic}/u.test(nm)?['name','Please enter your name without emoji.']:
+    org.length>120?['organisation','Please keep the organisation name under 120 characters.']:
+    LINK_LOOSE.test(org)?['organisation','Please enter your organisation without links or web addresses.']:
+    text.length>2000?['message','Your message is too long. Please keep it under 2,000 characters (it is '+text.length+' now).']:
+    words<3?['message','Please write your message as a sentence: at least 3 words, separated by spaces.']:
+    text.length<20?['message','Please add a little more to your message: at least 20 characters (it is '+text.length+' now).']:null;
+  if(problem){var pe=fieldEl(problem[0]); if(pe){pe.classList.add('bad'); pe.setAttribute('aria-invalid','true'); pe.focus();} msg.textContent=problem[1]; return;}
   msg.textContent='';
   function done(preview){var s=$('[data-success]',r); f.hidden=true; s.hidden=false;
     if(preview&&!$('[data-preview]',s)){var p=document.createElement('p'); p.setAttribute('data-preview',''); p.style.cssText="margin:0;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.1em;line-height:1.5;text-transform:uppercase;color:#F0A090"; p.textContent='Preview only — this form is not connected yet, so nothing was sent.'; ($('h3',s).parentElement).appendChild(p);}
